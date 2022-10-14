@@ -1,7 +1,7 @@
 package com.cgi.grocery.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +31,7 @@ public class XlsxFileReadService {
 		return data;
 	}
 
-	public void readXlsxFile(File file) throws IOException, ParseException, InvalidFormatException {
+	public void readXlsxFile(InputStream file) throws IOException, ParseException, InvalidFormatException {
 		try {
 			long start = System.currentTimeMillis();
 			Workbook workbook = StreamingReader.builder().rowCacheSize(50000).bufferSize(15360).open(file);

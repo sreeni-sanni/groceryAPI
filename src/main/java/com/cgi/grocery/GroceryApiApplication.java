@@ -1,13 +1,12 @@
 package com.cgi.grocery;
 
-import java.io.File;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.util.ResourceUtils;
 
 import com.cgi.grocery.service.XlsxFileReadService;
 
@@ -33,8 +32,13 @@ public class GroceryApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		File file = ResourceUtils.getFile("classpath:vegetables.xlsx");
-		xlsxFileReadService.readXlsxFile(file);
+		InputStream is=getResourceFileAsInputStream("vegetables.xlsx");
+		xlsxFileReadService.readXlsxFile(is);
+	}
+	
+	public InputStream getResourceFileAsInputStream(String fileName) {
+	    ClassLoader classLoader = getClass().getClassLoader();
+		return classLoader.getResourceAsStream(fileName);
 	}
 
 }
