@@ -1,6 +1,7 @@
 package com.cgi.grocery.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -68,7 +69,27 @@ public class GroceryControllerTest {
 		list.add(grocery_v1);
 
 		when(groceryservice.getGroceryItems()).thenReturn(list);
-		mockMvc.perform(get("/getAllGroceryItems")).andExpect(status().isOk())
+		mockMvc.perform(get("/getAllGroceries")).andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
+	}
+	
+	@Test
+	@DisplayName("Unit test for get groceries based on limit")
+	public void getGroceriesByLimtTest() throws Exception {
+		List<Grocery> list = new ArrayList<Grocery>();
+		Grocery grocery = new Grocery();
+		grocery.setItemName("Lime Local");
+		grocery.setPrice(97);
+		grocery.setDate("18-07-2012");
+		list.add(grocery);
+		Grocery grocery_v1 = new Grocery();
+		grocery_v1.setItemName("Little gourd");
+		grocery_v1.setPrice(15);
+		grocery_v1.setDate("18-07-2012");
+		list.add(grocery_v1);
+
+		when(groceryservice.getGroceryItemsByLimit(anyInt(),anyInt())).thenReturn(list);
+		mockMvc.perform(get("/getGroceriesByLimit").param("offSet", "0").param("limit","1")).andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(2)));
 	}
 
