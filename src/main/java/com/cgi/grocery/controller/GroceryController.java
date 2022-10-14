@@ -29,7 +29,7 @@ public class GroceryController {
 		this.groceryService = groceryService;
 	}
 
-	@GetMapping("/getGroceriesByName")
+	@GetMapping(value="/getGroceriesByName",  produces = "application/json")
 	public ResponseEntity<List<Grocery>> getGroceriesByName(@RequestParam("itemName") String name) throws ResourceNotFoundException {
 		return ResponseEntity.ok(groceryService.getGroceriesByName(name));
 	}
@@ -46,8 +46,16 @@ public class GroceryController {
 				.body(resource);
 	}
 
-	@GetMapping("/getAllGroceryItems")
+	@GetMapping(value="/getAllGroceries", produces = "application/json")
 	public ResponseEntity<List<Grocery>> getAllGroceryItems() throws Exception{
 		return ResponseEntity.ok(groceryService.getGroceryItems());
 	}
+	
+	@GetMapping(value="/getGroceriesByLimit", produces = "application/json")
+	public ResponseEntity<List<Grocery>> getGroceryItems(@RequestParam int offSet,@RequestParam int limit) throws Exception{
+		return ResponseEntity.ok(groceryService.getGroceryItemsByLimit(offSet,limit));
+	}
+	
+	
+	
 }

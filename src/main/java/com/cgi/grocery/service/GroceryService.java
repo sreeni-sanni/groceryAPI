@@ -34,9 +34,13 @@ public class GroceryService {
 	public List<Grocery> getGroceryItems() {
 		return getSortedGroceryData(xlsxFileReadService.getData());
 	}
+	
+	public List<Grocery> getGroceryItemsByLimit(int offSet,int limit) { 
+		return getSortedGroceryData(getgrocerySubList(xlsxFileReadService.getData(),offSet, offSet+limit));
+	}
 
 	public List<Grocery> getGroceriesByName(String name) {
-		List<Grocery> list = xlsxFileReadService.getData().stream()
+		List<Grocery> list = xlsxFileReadService.getData().parallelStream()
 				.filter(item -> item.getItemName().matches("(.*)" + name + "(.*)")).collect(Collectors.toList());
 		if (list.isEmpty()) {
 			logger.info("No Item found with " + name);
@@ -58,11 +62,16 @@ public class GroceryService {
 	}
 
 	private List<Grocery> getSortedGroceryData(List<Grocery> data) {
-		return data.stream().filter(item -> !item.getItemName().equals(""))
+		return data.parallelStream().filter(item -> !item.getItemName().equals(""))
 				.sorted(Comparator.comparing(Grocery::getItemName)
 						.thenComparing(Grocery::getPrice, Comparator.reverseOrder())
 						.thenComparing(Grocery::getDate, Comparator.reverseOrder()))
 				.collect(Collectors.toList());
+	}
+	
+	private List<Grocery> getgrocerySubList(List<Grocery> data,int offSet, int limit) {
+		 List<Grocery> subList = data.stream().filter(item -> !item.getItemName().equals("")).sorted(Comparator.comparing(Grocery::getItemName)).collect(Collectors.toList()).subList(offSet,limit);
+		return subList;
 	}
 
 	private List<String[]> getReportData(List<Grocery> data) {
