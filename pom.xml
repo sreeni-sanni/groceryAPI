@@ -109,5 +109,11 @@
 	  </snapshots>
 	</repository>
 </repositories>
+<distributionManagement>
+        <repository>
+            <id>sreeni</id>
+	    <url>https://pkgs.dev.azure.com/sreenivasulusanniboena/CgiTest/_packaging/sreeni/maven/v1</url>
+        </repository>
+  </distributionManagement>
 
 </project>
