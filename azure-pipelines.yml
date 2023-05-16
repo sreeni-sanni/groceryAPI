@@ -30,6 +30,10 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
 
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: 'Build.ArtifactStagingDirectory'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -37,8 +41,5 @@ steps:
     ArtifactName: 'sreeni'
     publishLocation: 'Container'
 
-- task: CopyFiles@2
-  inputs:
-    Contents: '**'
-    TargetFolder: 'Build.ArtifactStagingDirectory'
+
 
