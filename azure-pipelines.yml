@@ -36,3 +36,9 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'sreeni'
     publishLocation: 'Container'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: 'Build.ArtifactStagingDirectory'
+
