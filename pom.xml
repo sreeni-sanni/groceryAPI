@@ -110,10 +110,16 @@
 	</repository>
 </repositories>
 <distributionManagement>
-        <repository>
-            <id>sreeni</id>
-	    <url>https://pkgs.dev.azure.com/sreenivasulusanniboena/CgiTest/_packaging/sreeni/maven/v1</url>
-        </repository>
+       <repository>
+	  <id>sreeni</id>
+	  <url>https://pkgs.dev.azure.com/sreenivasulusanniboena/CgiTest/_packaging/sreeni/maven/v1</url>
+	  <releases>
+	    <enabled>true</enabled>
+	  </releases>
+	  <snapshots>
+	    <enabled>true</enabled>
+	  </snapshots>
+	</repository>
   </distributionManagement>
 
 </project>
