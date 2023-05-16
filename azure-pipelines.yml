@@ -40,3 +40,10 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: Maven@3
+  displayName: 'Maven pom.xml'
+  inputs:
+    mavenPomFile: pom.xml
+    goals: 'deploy:deploy-file'
+    options: '-DgroupId="com.cgi.grocery"  -DartifactId="groceryAPI" -Dversion="1.0.0-SNAPSHOT"  -Dpackaging=jar -Dfile="groceryAPI-1.0.0-SNAPSHOT.jar" -DgeneratePom="true" -DrepositoryId="sreeni" -Durl="https://pkgs.dev.azure.com/sreenivasulusanniboena/CgiTest/_packaging/sreeni/maven/v1"'
