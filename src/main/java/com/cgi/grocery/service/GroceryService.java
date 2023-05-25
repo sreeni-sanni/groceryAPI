@@ -43,7 +43,7 @@ public class GroceryService {
 		List<Grocery> list = xlsxFileReadService.getData().parallelStream()
 				.filter(item -> item.getItemName().matches("(.*)" + name + "(.*)")).collect(Collectors.toList());
 		if (list.isEmpty()) {
-			logger.info("No Item found with " + name);
+			logger.error("No Item found with " + name);
 			throw new ResourceNotFoundException("No Item found with " + name);
 		}
 		return list;
