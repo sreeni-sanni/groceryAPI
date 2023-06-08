@@ -19,5 +19,23 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+        stage("docker image build"){
+		    steps {
+		        script{
+		          bat "docker build -t sanniboena/dockerrepo:groceryapp ."
+		        }
+		    }
+	    }
+	    stage('Push image') {
+	        steps{
+	            script{
+                     withCredentials([usernameColonPassword(credentialsId: 'Docker_Hub', variable: '')]) {
+                  
+                     bat "docker push sanniboena/dockerrepo:groceryapp"
+                    }
+	                
+	            }
+	        }
+        }    
     }
 }
