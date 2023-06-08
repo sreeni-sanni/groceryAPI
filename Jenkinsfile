@@ -36,6 +36,13 @@ pipeline {
 	                
 	            }
 	        }
-        }    
+        } 
+	   stage('Deploying Kubernetes') {
+	      steps {
+		script {
+		  kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+		}
+	      }
+   	 }
     }
 }
