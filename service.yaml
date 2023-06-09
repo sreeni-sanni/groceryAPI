@@ -7,6 +7,6 @@ spec:
     app: groceryapp
   type: LoadBalancer #Type of the Kubernetes Service
   ports:
-  - protocol: TCP
-    port: 3000 #Service port
-    targetPort: 3000 #The port for the React.js application container
+  - protocol: HTTP
+    port: 8080 #Service port
+    targetPort: 8080 #The port for the React.js application container
