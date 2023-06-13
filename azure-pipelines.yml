@@ -1,41 +1,31 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
+---
 trigger:
-- main
-
+  - main
+pool:
+  vmImage: ubuntu-latest
 stages:
- - stage:
-   displayName: Build
-   jobs:
-   - job: Build
-   pool:
-    vmImage: ubuntu-latest
-
+  - stage: null
+    displayName: Build
+    jobs:
+      - job: Build
     steps:
-    - task: Maven@4
-      inputs:
-        mavenPomFile: 'pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.8'
-        mavenVersionOption: 'Default'
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    - task: CopyFiles@2
-      inputs:
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/taget'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'Chart'
-          publishLocation: 'Container'
-   
-  
-  
+      - task: Maven@4
+        inputs:
+          mavenPomFile: pom.xml
+          publishJUnitResults: true
+          testResultsFiles: "**/surefire-reports/TEST-*.xml"
+          javaHomeOption: JDKVersion
+          jdkVersionOption: "1.8"
+          mavenVersionOption: Default
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+      - task: CopyFiles@2
+        inputs:
+          Contents: "**"
+          TargetFolder: $(Build.ArtifactStagingDirectory)/taget
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: $(Build.ArtifactStagingDirectory)
+          ArtifactName: Chart
+          publishLocation: Container
