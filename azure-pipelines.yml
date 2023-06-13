@@ -2,7 +2,7 @@
 trigger:
   - main
 pool:
-  vmImage: local
+  vmImage: Hosted agent
 stages:
   - stage: null
     displayName: Build
