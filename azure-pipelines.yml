@@ -1,7 +1,7 @@
 ---
 trigger:
   - main
-pool: default
+pool: Default
  
 stages:
   - stage: null
