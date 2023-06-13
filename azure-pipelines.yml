@@ -42,5 +42,5 @@ stages:
             azureSubscription: 'AzurePipeline'
             appType: 'webAppLinux'
             WebAppName: 'groceryaapp-store'
-            packageForLinux: '$(System.DefaultWorkingDirectory)/*.jar'
+            packageForLinux: '$(Build.ArtifactStagingDirectory)/Chart/*.jar'
             StartupCommand: 'java -jar *.jar'
