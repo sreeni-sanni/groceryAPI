@@ -8,24 +8,25 @@ stages:
     displayName: Build
     jobs:
       - job: Build
-    steps:
-      - task: Maven@4
-        inputs:
-          mavenPomFile: pom.xml
-          publishJUnitResults: true
-          testResultsFiles: "**/surefire-reports/TEST-*.xml"
-          javaHomeOption: JDKVersion
-          jdkVersionOption: "1.8"
-          mavenVersionOption: Default
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-      - task: CopyFiles@2
-        inputs:
-          Contents: "**"
-          TargetFolder: $(Build.ArtifactStagingDirectory)/taget
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: $(Build.ArtifactStagingDirectory)
-          ArtifactName: Chart
-          publishLocation: Container
+        steps:
+         - task: Maven@4
+           inputs:
+            mavenPomFile: pom.xml
+            publishJUnitResults: true
+            testResultsFiles: "**/surefire-reports/TEST-*.xml"
+            javaHomeOption: JDKVersion
+            jdkVersionOption: "1.8"
+            mavenVersionOption: Default
+            mavenAuthenticateFeed: false
+            effectivePomSkip: false
+            sonarQubeRunAnalysis: false
+
+         - task: CopyFiles@2
+           inputs:
+            Contents: "**"
+            TargetFolder: $(Build.ArtifactStagingDirectory)/taget
+         - task: PublishBuildArtifacts@1
+           inputs:
+            PathtoPublish: $(Build.ArtifactStagingDirectory)
+            ArtifactName: Chart
+            publishLocation: Container
