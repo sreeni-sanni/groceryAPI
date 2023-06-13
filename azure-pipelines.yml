@@ -31,3 +31,17 @@ stages:
             PathtoPublish: $(Build.ArtifactStagingDirectory)
             ArtifactName: Chart
             publishLocation: Container
+
+  - stage :
+    displayName: Release
+    jobs:
+      - job: Release
+        steps :
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'Azure Service Connection'
+            appType: 'webAppLinux'
+            WebAppName: 
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
+            StartupCommand: 'java -jar *.jar'
