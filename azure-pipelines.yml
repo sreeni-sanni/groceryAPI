@@ -39,8 +39,8 @@ stages:
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
-            azureSubscription: 'Azure subscription 1(87b74e33-e176-45a4-8715-d45a0e0cebf9)'
+            azureSubscription: 'AzurePipeline'
             appType: 'webAppLinux'
-            WebAppName: 'groceryapp-online'
+            WebAppName: 'groceryaapp-store'
             packageForLinux: '$(System.DefaultWorkingDirectory)/*.jar'
             StartupCommand: 'java -jar *.jar'
