@@ -43,5 +43,5 @@ stages:
             azureSubscription: 'AzurePipeline'
             appType: 'webAppLinux'
             WebAppName: 'groceryaapp-store'
-            packageForLinux: '$(System.DefaultWorkingDirectory)'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
             StartupCommand: 'java -jar target/groceryAPI-0.0.1-SNAPSHOT.jar'
