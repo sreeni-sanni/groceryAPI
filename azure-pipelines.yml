@@ -36,6 +36,8 @@ stages:
     jobs:
       - job: Release
         steps :
+        - download: '$(System.DefaultWorkingDirectory)'
+          artifact: Chart
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
