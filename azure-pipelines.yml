@@ -35,11 +35,13 @@ stages:
     jobs:
       - job: Release
         steps :
+        - download: current
+          artifact: Chart
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
             azureSubscription: 'AzurePipeline'
             appType: 'webAppLinux'
             WebAppName: 'groceryaapp-store'
-            packageForLinux: '$(Build.ArtifactStagingDirectory)/**/**/*.jar'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
             StartupCommand: 'java -jar groceryAPI-0.0.1-SNAPSHOT.jar'
