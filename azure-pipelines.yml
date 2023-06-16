@@ -1,7 +1,7 @@
 ---
 trigger:
   - main
-pool: Default
+pool: ubuntu-latest 
  
 stages:
   - stage: null
@@ -37,4 +37,12 @@ stages:
         steps :
         - download: current
           artifact: Chart
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'AzurePipeline'
+            appType: 'webAppLinux'
+            WebAppName: 'groceryaapp-store'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            StartupCommand: 'java -jar target/groceryAPI-0.0.1-SNAPSHOT.jar'
         
